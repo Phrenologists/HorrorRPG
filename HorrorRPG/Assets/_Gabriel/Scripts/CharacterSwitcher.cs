@@ -9,6 +9,7 @@ public class CharacterSwitcher : MonoBehaviour
     private int activeCharacterIndex = 0;
     private List<Vector3> activeCharacterPositions = new List<Vector3>(); // Store positions of the active character over time
     public int maxPositionsToStore = 100; // Number of positions to store
+    public float rotationSpeed = 10f; // Rotation speed for characters
 
     void Start()
     {
@@ -66,6 +67,13 @@ public class CharacterSwitcher : MonoBehaviour
                 Vector3 targetPosition = CalculateTargetPosition(i);
                 // Move non-active characters towards the target position
                 characters[i].transform.position = Vector3.Lerp(characters[i].transform.position, targetPosition, Time.deltaTime * 5f);
+
+                // Rotate the character to face the movement direction
+                if ((targetPosition - characters[i].transform.position).magnitude > 0.1f)
+                {
+                    Quaternion targetRotation = Quaternion.LookRotation(targetPosition - characters[i].transform.position);
+                    characters[i].transform.rotation = Quaternion.Lerp(characters[i].transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+                }
             }
         }
     }

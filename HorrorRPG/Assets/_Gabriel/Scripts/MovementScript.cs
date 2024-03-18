@@ -6,6 +6,7 @@ public class MovementScript : MonoBehaviour
 {
     public Transform cameraTransform;
     public float moveSpeed = 5f;
+    public float rotationSpeed = 10f;
 
     private Rigidbody rb;
 
@@ -24,6 +25,13 @@ public class MovementScript : MonoBehaviour
             return;
 
         Vector3 moveDirection = GetMoveDirection();
+
+        // Rotate the character
+        if (moveDirection != Vector3.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
+            rb.rotation = Quaternion.Lerp(rb.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime);
+        }
 
         // Move the character
         rb.MovePosition(rb.position + moveDirection * moveSpeed * Time.fixedDeltaTime);
