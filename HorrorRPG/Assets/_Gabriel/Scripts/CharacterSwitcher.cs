@@ -6,7 +6,7 @@ public class CharacterSwitcher : MonoBehaviour
 {
     public GameObject[] characters;
     public float followDistance = 2f; // Distance between characters when following
-    private int activeCharacterIndex = 0;
+    [HideInInspector] public int activeCharacterIndex = 0;
     private List<Vector3> activeCharacterPositions = new List<Vector3>(); // Store positions of the active character over time
     public int maxPositionsToStore = 100; // Number of positions to store
     public float rotationSpeed = 10f; // Rotation speed for characters
