@@ -1,19 +1,21 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class CharacterSwitcher : MonoBehaviour
 {
-    public MovementScript[] characters;
+    public GameObject[] characters;
     public float followDistance = 2f; // Distance between characters when following
     private int activeCharacterIndex = 0;
+    private List<Vector3> activeCharacterPositions = new List<Vector3>(); // Store positions of the active character over time
+    public int maxPositionsToStore = 100; // Number of positions to store
 
     void Start()
     {
         // Disable control for all characters except the first one
         for (int i = 1; i < characters.Length; i++)
         {
-            characters[i].enabled = false;
+            characters[i].GetComponent<MovementScript>().enabled = false;
         }
     }
 
@@ -29,48 +31,60 @@ public class CharacterSwitcher : MonoBehaviour
             }
         }
 
-        // Make non-player characters follow the active character
-        FollowCharacter();
+        // Make non-player characters follow the path of the active character
+        FollowActiveCharacter();
     }
 
     private void SwitchCharacter(int index)
     {
         // Disable control for the current character
-        characters[activeCharacterIndex].enabled = false;
+        characters[activeCharacterIndex].GetComponent<MovementScript>().enabled = false;
 
         // Enable control for the new character
         activeCharacterIndex = index;
-        characters[activeCharacterIndex].enabled = true;
+        characters[activeCharacterIndex].GetComponent<MovementScript>().enabled = true;
 
-        // Reset Rigidbody velocity to prevent issues when switching characters
-        characters[activeCharacterIndex].GetComponent<Rigidbody>().velocity = Vector3.zero;
+        // Clear stored positions when switching characters
+        activeCharacterPositions.Clear();
     }
 
-    private void FollowCharacter()
+    private void FollowActiveCharacter()
     {
-        // Calculate the offset based on the controlled character
-        int offset = characters.Length - activeCharacterIndex;
-
-        // Update positions of characters
-        for (int i = 1; i < characters.Length; i++)
+        // Store position of the active character
+        activeCharacterPositions.Insert(0, characters[activeCharacterIndex].transform.position);
+        // Limit the number of stored positions
+        if (activeCharacterPositions.Count > maxPositionsToStore)
         {
-            // Calculate target index in a circular manner
-            int targetIndex = (i + offset) % characters.Length;
+            activeCharacterPositions.RemoveAt(activeCharacterPositions.Count - 1);
+        }
 
-            // Calculate target position with desired distance
-            Vector3 targetPosition;
-
-            // For character 1 (controlled), it follows character 5
-            if (activeCharacterIndex == 0)
-                targetPosition = characters[characters.Length - 1].transform.position - (characters[characters.Length - 1].transform.forward * followDistance);
-            else
-                targetPosition = characters[targetIndex].transform.position - (characters[targetIndex].transform.forward * followDistance);
-
-            // Update position only if the character is not the currently controlled one
+        for (int i = 0; i < characters.Length; i++)
+        {
             if (i != activeCharacterIndex)
             {
+                // Calculate the target position for non-active characters
+                Vector3 targetPosition = CalculateTargetPosition(i);
+                // Move non-active characters towards the target position
                 characters[i].transform.position = Vector3.Lerp(characters[i].transform.position, targetPosition, Time.deltaTime * 5f);
             }
         }
+    }
+
+    private Vector3 CalculateTargetPosition(int characterIndex)
+    {
+        // Determine the target index for the character in the chain
+        int targetIndex = characterIndex - 1;
+        if (targetIndex < 0)
+            targetIndex += characters.Length; // Wrap around to the last character
+
+        // Retrieve the corresponding position from the stored positions of the active character
+        int storedIndex = Mathf.Min(targetIndex, activeCharacterPositions.Count - 1);
+        Vector3 targetPosition = activeCharacterPositions[storedIndex];
+
+        // Adjust the target position based on the follow distance
+        Vector3 offset = (characters[characterIndex].transform.position - characters[activeCharacterIndex].transform.position).normalized * followDistance;
+        targetPosition += offset;
+
+        return targetPosition;
     }
 }
