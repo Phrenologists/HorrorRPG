@@ -36,7 +36,7 @@ public class CharacterSwitcher : MonoBehaviour
         FollowActiveCharacter();
     }
 
-    private void SwitchCharacter(int index)
+    public void SwitchCharacter(int index)
     {
         // Disable control for the current character
         characters[activeCharacterIndex].GetComponent<MovementScript>().enabled = false;
@@ -47,6 +47,14 @@ public class CharacterSwitcher : MonoBehaviour
 
         // Clear stored positions when switching characters
         activeCharacterPositions.Clear();
+    }
+
+    public void SwitchCharacterByIndex(int index)
+    {
+        if (index >= 0 && index < characters.Length)
+        {
+            SwitchCharacter(index);
+        }
     }
 
     private void FollowActiveCharacter()
