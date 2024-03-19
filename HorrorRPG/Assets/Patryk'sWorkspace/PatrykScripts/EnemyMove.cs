@@ -27,6 +27,7 @@ public class EnemyMove : TacticsMove
         FindNearestTarget();
         CalculatePath();
         FindSelectableTiles();
+        actualTargetTile.target = true;
         }
         else
         {
@@ -37,7 +38,7 @@ public class EnemyMove : TacticsMove
     void CalculatePath()
     {
         Tile targetTile = GetTargetTile(target);
-        //FindPath(targetTile);
+        FindPath(targetTile);
 
     }
 
@@ -51,7 +52,12 @@ public class EnemyMove : TacticsMove
 
         foreach (GameObject obj in targets)
         {
-            
+            float d = Vector3.Distance(transform.position, obj.transform.position);
+            if (d < distance)
+            {
+                distance = d;
+                nearest = obj;
+            }
         }
 
         target = nearest;
