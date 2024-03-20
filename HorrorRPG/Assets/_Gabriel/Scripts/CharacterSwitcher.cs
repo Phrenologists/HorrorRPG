@@ -28,6 +28,7 @@ public class CharacterSwitcher : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Alpha1 + i))
             {
                 SwitchCharacter(i);
+                //print(getActiveCharacter());
                 break;
             }
         }
@@ -102,5 +103,10 @@ public class CharacterSwitcher : MonoBehaviour
         targetPosition += offset;
 
         return targetPosition;
+    }
+
+    public GameObject getActiveCharacter()
+    { 
+      return characters[activeCharacterIndex];
     }
 }
