@@ -14,6 +14,8 @@ public class ImageDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler
     List<Image> highlightedImages = new List<Image>();
     List<Image> groupedImages = new List<Image>();
 
+    public static List<int> latestGroup = new List<int>();
+
     void Start()
     {
         rectTransform = GetComponent<RectTransform>();
@@ -100,6 +102,13 @@ public class ImageDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler
 
     void GroupImages()
     {
+
+        latestGroup.Clear();
+        foreach (Image image in highlightedImages)
+        {
+            latestGroup.Add(int.Parse(image.name)); // assuming the image names are the numbers
+        }
+
         List<string> groupedImageNames = new List<string>();
         foreach (Image image in highlightedImages)
         {
@@ -110,5 +119,20 @@ public class ImageDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler
             groupedImageNames.Add(image.name);
         if (groupedImageNames.Count > 0)
             Debug.Log("Grouped Images: " + string.Join(", ", groupedImageNames.ToArray()));
+
+        RearrangeImages();
+    }
+
+    void RearrangeImages()
+    {
+        float initialY = images[0].GetComponent<RectTransform>().anchoredPosition.y;
+        float gap = 50f; // Set this to the gap you want between images
+        for (int i = 0; i < groupedImages.Count; i++)
+        {
+            RectTransform rectTransform = groupedImages[i].GetComponent<RectTransform>();
+            rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, initialY - i * gap);
+        }
+
+        FindImages();
     }
 }
