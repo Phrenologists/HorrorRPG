@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class GroupManager : MonoBehaviour
 {
-    List<List<int>> groups = new List<List<int>>();
+    private List<List<int>> groups = new List<List<int>>();
 
     void Start()
     {
@@ -43,5 +43,10 @@ public class GroupManager : MonoBehaviour
         {
             Debug.Log("Group " + (i + 1) + ": " + string.Join(", ", groups[i]));
         }
+    }
+
+    public List<List<int>> GetGroups()
+    {
+        return groups;
     }
 }
