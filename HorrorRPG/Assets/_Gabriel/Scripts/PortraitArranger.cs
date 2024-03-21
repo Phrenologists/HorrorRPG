@@ -17,7 +17,7 @@ public class PortraitArranger : MonoBehaviour
 
     void ArrangeImages()
     {
-        float currentY = 200f; // The current y position for the next image
+        float currentY = 450f; // The current y position for the next image
         List<List<int>> groups = groupManager.GetGroups();
 
         for (int i = 0; i < groups.Count; i++)
