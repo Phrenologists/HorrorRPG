@@ -5,6 +5,17 @@ public class GroupManager : MonoBehaviour
 {
     List<List<int>> groups = new List<List<int>>();
 
+    void Start()
+    {
+        // Initialize all images in one group
+        List<int> initialGroup = new List<int>();
+        for (int i = 1; i <= 5; i++) // assuming the image names are numbers from 1 to 5
+        {
+            initialGroup.Add(i);
+        }
+        groups.Add(initialGroup);
+    }
+
     void Update()
     {
         if (ImageDragHandler.latestGroup.Count > 0)
