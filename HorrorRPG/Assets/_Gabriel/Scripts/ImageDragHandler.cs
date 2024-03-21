@@ -15,6 +15,8 @@ public class ImageDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler
     List<Image> groupedImages = new List<Image>();
 
     public static List<int> latestGroup = new List<int>();
+    public static GameObject currentlyDraggedImage = null;
+    public static Dictionary<int, Vector2> originalPositions = new Dictionary<int, Vector2>();
 
     void Start()
     {
@@ -29,6 +31,8 @@ public class ImageDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler
     public void OnPointerDown(PointerEventData eventData)
     {
         isDragging = true;
+        originalPosition = rectTransform.anchoredPosition; // Store the original position
+        ImageDragHandler.currentlyDraggedImage = gameObject; // Set the currently dragged image
         Image draggedImage = gameObject.GetComponent<Image>();
         if (draggedImage != null && !highlightedImages.Contains(draggedImage))
             highlightedImages.Add(draggedImage);
@@ -47,6 +51,7 @@ public class ImageDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler
     public void OnPointerUp(PointerEventData eventData)
     {
         isDragging = false;
+        ImageDragHandler.currentlyDraggedImage = null; // Clear the currently dragged image
         GroupImages();
         UnhighlightImage();
         highlightedImages.Clear();
@@ -102,7 +107,6 @@ public class ImageDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler
 
     void GroupImages()
     {
-
         latestGroup.Clear();
         foreach (Image image in highlightedImages)
         {
@@ -132,7 +136,5 @@ public class ImageDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler
             RectTransform rectTransform = groupedImages[i].GetComponent<RectTransform>();
             rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, initialY - i * gap);
         }
-
-        FindImages();
     }
 }
