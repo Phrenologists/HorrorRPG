@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 public class ImageDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
 {
+    public GameObject[] dragImages;
     RectTransform rectTransform;
     Canvas canvas;
     Vector2 originalPosition;
@@ -78,8 +79,9 @@ public class ImageDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler
 
     void HighlightImage()
     {
-        foreach (Image image in images)
+        foreach (GameObject dragImage in dragImages) // Only consider the drag images
         {
+            Image image = dragImage.GetComponent<Image>();
             RectTransform otherRectTransform = image.GetComponent<RectTransform>();
             if (isHovering && otherRectTransform != null && Vector2.Distance(rectTransform.anchoredPosition, otherRectTransform.anchoredPosition) < 50f)
             {
@@ -98,6 +100,7 @@ public class ImageDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler
                 image.color = Color.white;
         }
     }
+
 
     void UnhighlightImage()
     {
