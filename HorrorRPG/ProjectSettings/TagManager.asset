@@ -4,8 +4,8 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Image
-  - SnapPoint
+  - Tile
+  - Enemy
   layers:
   - Default
   - TransparentFX
