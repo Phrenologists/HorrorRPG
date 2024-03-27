@@ -104,8 +104,11 @@ public class ImageDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler
 
     void UnhighlightImage()
     {
-        foreach (Image image in images)
+        foreach (GameObject dragImage in dragImages) // Only consider the drag images
+        {
+            Image image = dragImage.GetComponent<Image>();
             image.color = Color.white;
+        }
     }
 
     void GroupImages()
