@@ -230,7 +230,7 @@ public class TacticsMove : MonoBehaviour
         currentTile.h = Vector3.Distance(currentTile.transform.position, target.transform.position);
 
         
-        //This means the enemy will not be able to move if the target is outside it's range. Gotta find a workaround later
+        
         while (openList.Count > 0)
         {
             Tile t = FindLowestF(openList);
