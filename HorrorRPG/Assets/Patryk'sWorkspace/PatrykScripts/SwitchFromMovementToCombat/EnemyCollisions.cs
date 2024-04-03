@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class EnemyCollisions : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private void OnTriggerEnter(Collider other)
     {
-        
+        if(other.gameObject.CompareTag("Player"))
+        {
+            GameManager.Instance.SetCombatState(true);
+            GameManager.Instance.SetGridPosition(other.transform.position);
+        }
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }

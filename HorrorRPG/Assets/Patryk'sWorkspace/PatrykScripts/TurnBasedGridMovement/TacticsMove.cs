@@ -110,7 +110,7 @@ public class TacticsMove : MonoBehaviour
             next = next.parent;
         }
     }
-    public void Move()
+    protected void Move()
     {
         if (path.Count > 0)
         {
