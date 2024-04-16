@@ -1,22 +1,25 @@
 using UnityEngine;
 
-public class ExternalSwitching : MonoBehaviour
+namespace _Gabriel.Scripts
 {
-    public CharacterSwitcher characterSwitcher; // Reference to the CharacterSwitcher script
-
-    void Start()
+    public class ExternalSwitching : MonoBehaviour
     {
-        // Assuming you want to switch to character 2
-    }
+        public CharacterSwitcher characterSwitcher; // Reference to the CharacterSwitcher script
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha6))
+        void Start()
         {
-            Debug.Log("External switch to 2");
-            characterSwitcher.SwitchCharacter(1); //Since it starts at 0, 1 is character 2
+            // Assuming you want to switch to character 2
         }
 
+        void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha6))
+            {
+                Debug.Log("External switch to 2");
+                characterSwitcher.SwitchCharacter(1); //Since it starts at 0, 1 is character 2
+            }
 
+
+        }
     }
 }

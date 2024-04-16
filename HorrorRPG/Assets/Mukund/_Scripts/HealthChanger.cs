@@ -1,16 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
+using Mukund._Scripts.EventSystem;
 using UnityEngine;
 
-public class HealthChanger : MonoBehaviour
+namespace Mukund._Scripts
 {
-    public GameEvent onCharHealthChanged;
-    public float healthChange;
-
-    private void OnTriggerEnter(Collider other)
+    public class HealthChanger : MonoBehaviour
     {
-        
-        onCharHealthChanged.TriggerEvent(other, healthChange);
-    }
+        public GameEvent onCharHealthChanged;
+        public float healthChange;
 
+        private void OnTriggerEnter(Collider other)
+        {
+        
+            onCharHealthChanged.TriggerEvent(other, healthChange);
+        }
+
+    }
 }

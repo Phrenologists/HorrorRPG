@@ -3,17 +3,16 @@ using UnityEngine;
 
 namespace Mukund._Scripts
 {
-    public class UI_HealthChanger : MonoBehaviour
+    public class UI_SanityChanger : MonoBehaviour
     {
-        public TextMeshProUGUI healthText;
-        public void UpdateHealthUI(Component sender, object currentHealth)
+        public TextMeshProUGUI sanityText;
+        public void UpdateSanityUI(Component sender, object currentSanity)
         {
             string containerName = gameObject.transform.parent.parent.name;
             if (containerName.Contains(sender.name))
             {
-                healthText.text = currentHealth.ToString();
+                sanityText.text = currentSanity.ToString();
             }
         }
     }
 }
-

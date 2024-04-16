@@ -1,38 +1,40 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "GameEvent")]
-public class GameEvent : ScriptableObject
+namespace Mukund._Scripts.EventSystem
 {
-    public List<GameEventListner> listeners = new List<GameEventListner>();
-
-    public void TriggerEvent(Component sender, object data)
+    [CreateAssetMenu(menuName = "GameEvent")]
+    public class GameEvent : ScriptableObject
     {
-        for(int i = 0; i < listeners.Count; i++)
-        {
-            listeners[i].OnEventTriggered(sender, data);
-        }
-    }
+        public List<GameEventListner> listeners = new List<GameEventListner>();
 
-    //Managing Listners
+        public void TriggerEvent(Component sender, object data)
+        {
+            for(int i = 0; i < listeners.Count; i++)
+            {
+                listeners[i].OnEventTriggered(sender, data);
+            }
+        }
+
+        //Managing Listners
     
-    //Register Listeners if not present
-    public void RegisterListener(GameEventListner listener)
-    {
-        if (!listeners.Contains(listener))
+        //Register Listeners if not present
+        public void RegisterListener(GameEventListner listener)
         {
-            listeners.Add(listener);
+            if (!listeners.Contains(listener))
+            {
+                listeners.Add(listener);
+            }
         }
-    }
 
-    //Unregister Listeners from the list
-    public void UnregisterListener(GameEventListner listener)
-    {
-        if (listeners.Contains(listener))
+        //Unregister Listeners from the list
+        public void UnregisterListener(GameEventListner listener)
         {
-            listeners.Remove(listener);
+            if (listeners.Contains(listener))
+            {
+                listeners.Remove(listener);
+            }
         }
-    }
     
+    }
 }
