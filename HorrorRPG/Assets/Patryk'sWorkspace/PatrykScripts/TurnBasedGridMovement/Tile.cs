@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
+    public Vector3 fixedPosition {  get; private set; }
 
     public bool walkable = true;
     public bool current = false;
@@ -22,6 +23,10 @@ public class Tile : MonoBehaviour
     public float f = 0;
     public float g = 0;
     public float h = 0;
+    private void Awake()
+    {
+        fixedPosition = transform.localPosition;
+    }
     // Start is called before the first frame update
     void Start()
     {
