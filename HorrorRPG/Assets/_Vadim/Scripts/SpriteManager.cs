@@ -25,9 +25,18 @@ public class SpriteManager : ICameraTransformDependant
             characterState = value;
             if (animator)
             {
-                PlayAnimation(true);
+                if (canChangeState)
+                {
+                    PlayAnimation(true);
+                    StartCoroutine(DelayDirection());
+                }
+                
             }
         } }
+    [SerializeField] private float directionChangeRestriction = .5f;
+    [SerializeField] private float stateChangeRestriction = .5f;
+    private bool canChangeDirection = true;
+    private bool canChangeState = true;
     protected override void Awake()
     {
         base.Awake();
@@ -44,6 +53,10 @@ public class SpriteManager : ICameraTransformDependant
     }
     private void AdjustSpriteDirection(Transform cameraTransform, bool changeSpritesHalfway)
     {
+        if(!canChangeDirection)
+        {
+            return;
+        }
         float angleDiff = Mathf.Round(cameraTransform.eulerAngles.y - bodyLogic.eulerAngles.y);
         EulerAnglesClamper.Instance.ClampAngleValue(ref angleDiff);
 
@@ -64,7 +77,7 @@ public class SpriteManager : ICameraTransformDependant
                 PlayAnimation(false);
             }
         }
-        
+        StartCoroutine(DelayDirection());
 
     }
 
@@ -94,5 +107,17 @@ public class SpriteManager : ICameraTransformDependant
 
             animator.Play(characterState + directionsSequence[Array.IndexOf(anglesSequence, currentAngle)], 0, nextClipStartTime);
         }
+    }
+    private IEnumerator DelayDirection()
+    {
+        canChangeDirection = false;
+        yield return new WaitForSeconds(directionChangeRestriction);
+        canChangeDirection = true;
+    }
+    private IEnumerator DelayState()
+    {
+        canChangeState = false;
+        yield return new WaitForSeconds(stateChangeRestriction);
+        canChangeState = true;
     }
 }

@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class StrictMovement : MonoBehaviour
+[RequireComponent(typeof(Rigidbody))]
+public class StrictMovement : ICharacterMovement
 {
     private BodyRotation _rotationLogic;
 
@@ -12,8 +12,8 @@ public class StrictMovement : MonoBehaviour
 
     private Rigidbody rb;
     private Vector3 moveDirection = Vector3.zero;
-    public bool IsMoving => moveDirection != Vector3.zero;
-    void Start()
+    public override bool IsMoving => moveDirection != Vector3.zero;
+    void Awake()
     {
         rb = GetComponent<Rigidbody>();
         _rotationLogic = GetComponentInChildren<BodyRotation>();
@@ -23,6 +23,7 @@ public class StrictMovement : MonoBehaviour
             //Debug.LogError("Camera Transform not assigned to the ThirdPersonController script!");
         }
     }
+    
 
     void FixedUpdate()
     {
@@ -36,17 +37,20 @@ public class StrictMovement : MonoBehaviour
         {
             Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
             _rotationLogic.RotateTowards(targetRotation);
-        } else
+        }
+        else
         {
             _rotationLogic.AutoRotate();
         }
 
         // Move the character
+
         rb.MovePosition(rb.position + moveDirection * moveSpeed * Time.fixedDeltaTime);
     }
 
     private Vector3 GetMoveDirection()
     {
+
         // Get camera forward direction without vertical component
         Vector3 cameraForward = cameraTransform.forward;
         cameraForward.y = 0f;
@@ -64,5 +68,15 @@ public class StrictMovement : MonoBehaviour
         moveDirection.Normalize();
 
         return moveDirection;
+    }
+
+    public override void Activate()
+    {
+        rb.isKinematic = false;
+    }
+
+    public override void Deactivate()
+    {
+        rb.isKinematic = true;
     }
 }

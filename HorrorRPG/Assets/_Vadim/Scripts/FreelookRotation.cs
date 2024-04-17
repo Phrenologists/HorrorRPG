@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using System.Xml.Linq;
+using Unity.VisualScripting;
 
 public class FreelookRotation : MonoBehaviour
 {
-    public CinemachineFreeLook vCam;
+    private CinemachineFreeLook vCam;
 
     [SerializeField] private bool shouldUseMouse = true;
     [SerializeField] private float rotateAmount = 45;
@@ -15,7 +16,6 @@ public class FreelookRotation : MonoBehaviour
     private float initialPosition = 0;
     private float targetPosition = 0;
     private float t = 0f;
-    private float curTransitionTime = 0;
     private float lastActiveMouseInput = 0;
 
     private int numOfAngles;
@@ -24,11 +24,14 @@ public class FreelookRotation : MonoBehaviour
     private bool canMove = true;
     private KeyCode currentKey;
 
+
+  
+       
+    [SerializeField] private Follower FollowObject;
     // Start is called before the first frame update
     void Start()
     {
         vCam = GetComponent<CinemachineFreeLook>();
-        curTransitionTime = transitionTime;
         numOfAngles = (int) (360 / rotateAmount);
         fixedAngles = new float[numOfAngles];
         for (int i = 0; i < numOfAngles; i++)
@@ -41,17 +44,14 @@ public class FreelookRotation : MonoBehaviour
             {
                 fixedAngles[i] = rotateAmount * i;
             }
-            //print(fixedAngles[i]);
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        //print(vCam.m_XAxis.Value);
+        //MoveTowardsTarget();
         ManageInput();
-
-        
     }
     private void FixedUpdate()
     {
@@ -119,7 +119,7 @@ public class FreelookRotation : MonoBehaviour
         } 
         else
         {
-            vCam.m_XAxis.m_InputAxisName = "Mouse X";
+            vCam.m_XAxis.m_InputAxisName = "Gamepad X";
         }
         if (lastActiveMouseInput < 0)
         {
@@ -153,7 +153,6 @@ public class FreelookRotation : MonoBehaviour
         float remainder = initialPosition % rotateAmount;
        
         float differenceToNext = rotateAmount -  Mathf.Abs(remainder);
-        curTransitionTime = transitionTime * (differenceToNext / rotateAmount);
 
         if (isPositive)
         {
@@ -188,5 +187,10 @@ public class FreelookRotation : MonoBehaviour
         }
 
         return closestElement;
+    }
+ 
+    public void UpdateFollowTarget(Transform newFollower)
+    {
+        FollowObject.target = newFollower;
     }
 }
