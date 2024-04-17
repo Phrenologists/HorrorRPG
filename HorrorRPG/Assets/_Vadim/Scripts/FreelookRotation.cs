@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using System.Xml.Linq;
+using Unity.VisualScripting;
 
 public class FreelookRotation : MonoBehaviour
 {
-    public CinemachineFreeLook vCam;
+    private CinemachineFreeLook vCam;
 
     [SerializeField] private bool shouldUseMouse = true;
     [SerializeField] private float rotateAmount = 45;
@@ -15,19 +16,22 @@ public class FreelookRotation : MonoBehaviour
     private float initialPosition = 0;
     private float targetPosition = 0;
     private float t = 0f;
-    private float curTransitionTime = 0;
     private float lastActiveMouseInput = 0;
 
     private int numOfAngles;
     private float[] fixedAngles;
 
     private bool canMove = true;
+    private KeyCode currentKey;
 
+
+  
+       
+    [SerializeField] private Follower FollowObject;
     // Start is called before the first frame update
     void Start()
     {
         vCam = GetComponent<CinemachineFreeLook>();
-        curTransitionTime = transitionTime;
         numOfAngles = (int) (360 / rotateAmount);
         fixedAngles = new float[numOfAngles];
         for (int i = 0; i < numOfAngles; i++)
@@ -40,17 +44,14 @@ public class FreelookRotation : MonoBehaviour
             {
                 fixedAngles[i] = rotateAmount * i;
             }
-            //print(fixedAngles[i]);
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        //print(vCam.m_XAxis.Value);
+        //MoveTowardsTarget();
         ManageInput();
-
-        
     }
     private void FixedUpdate()
     {
@@ -84,13 +85,32 @@ public class FreelookRotation : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            RotateCameraRight();
-            return;
+            if(currentKey == KeyCode.Q)
+            {
+                if (!canMove)
+                {
+                    return;
+                }
+            } 
+            currentKey = KeyCode.Q;
+                RotateCameraRight();
+                return;
+
         }
         else if (Input.GetKeyDown(KeyCode.E))
         {
-            RotateCameraLeft();
-            return;
+            if (currentKey == KeyCode.E)
+            {
+                if (!canMove)
+                {
+                    return;
+                }
+            }
+            currentKey = KeyCode.E; ;
+          
+                RotateCameraLeft();
+                return;
+                
         }
         if(shouldUseMouse == false)
         {
@@ -99,7 +119,7 @@ public class FreelookRotation : MonoBehaviour
         } 
         else
         {
-            vCam.m_XAxis.m_InputAxisName = "Mouse X";
+            vCam.m_XAxis.m_InputAxisName = "Gamepad X";
         }
         if (lastActiveMouseInput < 0)
         {
@@ -115,8 +135,7 @@ public class FreelookRotation : MonoBehaviour
     private void RotateCameraRight()
     {
         initialPosition = vCam.m_XAxis.Value;
-        //targetPosition = (initialPosition + rotateAmount);
-        targetPosition = FindClosestFixedAngle(true);
+        targetPosition = FindClosestFixedAngle(vCam.m_XAxis.m_InvertInput);
         lastActiveMouseInput = 0;
         t = 0;
     }
@@ -124,8 +143,7 @@ public class FreelookRotation : MonoBehaviour
     private void RotateCameraLeft()
     {
         initialPosition = vCam.m_XAxis.Value;
-        //targetPosition = (initialPosition - rotateAmount);
-        targetPosition = FindClosestFixedAngle(false);
+        targetPosition = FindClosestFixedAngle(!vCam.m_XAxis.m_InvertInput);
         lastActiveMouseInput = 0;
         t = 0;
     }
@@ -134,9 +152,7 @@ public class FreelookRotation : MonoBehaviour
     {
         float remainder = initialPosition % rotateAmount;
        
-            // Calculate the difference to the next angle divisible by 45
-            float differenceToNext = rotateAmount -  Mathf.Abs(remainder);
-        curTransitionTime = transitionTime * (differenceToNext / rotateAmount);
+        float differenceToNext = rotateAmount -  Mathf.Abs(remainder);
 
         if (isPositive)
         {
@@ -154,10 +170,6 @@ public class FreelookRotation : MonoBehaviour
             }
             return initialPosition - differenceToNext;
         }
-            // Return the angle plus the difference to the next divisible angle
-        //return isPositive ? initialPosition + differenceToNext : initialPosition - differenceToNext;
-
-
     }
     private float FindClosestElement(float value)
     {
@@ -176,65 +188,9 @@ public class FreelookRotation : MonoBehaviour
 
         return closestElement;
     }
+ 
+    public void UpdateFollowTarget(Transform newFollower)
+    {
+        FollowObject.target = newFollower;
+    }
 }
-
-
-//if(isPositive)
-//{
-//    for (int i = 0; i < numOfAngles; i++)
-//    {
-//        if (initialPosition.Equals(fixedAngles[i]))
-//        {
-//            newAngle = fixedAngles[i + 1 > numOfAngles - 1 ? 0 : i + 1];
-//            break;
-//            //print(initialPosition + (rotateAmount * (i+2) - fixedAngles[i + 1]));
-//            //return initialPosition + (rotateAmount * (i + 2) - fixedAngles[i + 1]);
-//        }
-//        if (curAngle < fixedAngles[i + 1] && curAngle > fixedAngles[i]
-//            || curAngle > fixedAngles[i + 1] && curAngle < fixedAngles[i])
-//        {
-//            newAngle = fixedAngles[(i + 1)];
-//            break;
-//        }
-
-//        if (curAngle >= fixedAngles[i])
-//        {
-
-//            newAngle = fixedAngles[i + 1 > numOfAngles - 1 ? 0 + (numOfAngles - i - 1) : i + 1];
-//            break;
-//        }
-//        if (curAngle <= fixedAngles[i])
-//        {
-//            newAngle = fixedAngles[i];
-//            break;
-//        }
-
-//    }
-//} else
-//{
-//    for (int i = 0; i < numOfAngles; i++)
-//    {
-//        if (initialPosition.Equals(fixedAngles[i]))
-//        {
-//            newAngle = fixedAngles[i - 1 < 0 ? numOfAngles - i - 1 : i - 1];
-//            break;
-//        }
-//        //if (curAngle < fixedAngles[i - 1] && curAngle > fixedAngles[i]
-//        //    || curAngle > fixedAngles[i - 1] && curAngle < fixedAngles[i])
-//        //{
-//        //    newAngle = fixedAngles[i - 1 < 0 ? numOfAngles - i - 1 : i - 1];
-//        //    break;
-//        //}
-//        //if (curAngle <= fixedAngles[i])
-//        //{
-//        //    newAngle = fixedAngles[i - 1 < 0 ? numOfAngles - i - 1 : i - 1];
-//        //    break;
-//        //}
-//        //if (curAngle >= fixedAngles[i])
-//        //{
-//        //    newAngle = fixedAngles[i];
-//        //    break;
-//        //}
-
-//    }
-//}

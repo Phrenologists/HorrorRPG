@@ -10,7 +10,7 @@ public class Follower : MonoBehaviour
 
     public float followSpeed = 5f; // Speed of following
 
-    void Update()
+    void FixedUpdate()
     {
         if (target != null)
         {
@@ -21,7 +21,7 @@ public class Follower : MonoBehaviour
             float curveValue = followCurve.Evaluate(distanceNormalized);
 
             // Smoothly move towards the target
-            transform.position = Vector3.Lerp(transform.position, target.position, curveValue * Time.deltaTime * followSpeed);
+            transform.position = Vector3.Slerp(transform.position, target.position, curveValue * Time.deltaTime * followSpeed);
         }
     }
 }

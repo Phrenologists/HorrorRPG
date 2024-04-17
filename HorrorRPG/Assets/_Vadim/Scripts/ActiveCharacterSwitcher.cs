@@ -2,10 +2,12 @@ using System.Collections;
 using UnityEngine;
 using System.Collections.Generic;
 using Cinemachine;
+using UnityEditor.Experimental.GraphView;
+
 public class ActiveCharacterSwitcher : MonoBehaviour
 {
-    [SerializeField] private CinemachineFreeLook virtualCamera;
-    public GameObject[] characters;
+    [SerializeField] private FreelookRotation virtualCamera;
+    public CharacterController[] characters;
     public float followDistance = 2f; // Distance between characters when following
     [HideInInspector] public int activeCharacterIndex = 0;
     private List<Vector3> activeCharacterPositions = new List<Vector3>(); // Store positions of the active character over time
@@ -14,11 +16,7 @@ public class ActiveCharacterSwitcher : MonoBehaviour
 
     void Start()
     {
-        // Disable control for all characters except the first one
-        for (int i = 1; i < characters.Length; i++)
-        {
-            characters[i].GetComponent<CharacterController>().enabled = false;
-        }
+        SwitchCharacter(0);
     }
 
     void Update()
@@ -40,19 +38,18 @@ public class ActiveCharacterSwitcher : MonoBehaviour
     public void SwitchCharacter(int index)
     {
         // Disable control for the current character
-        characters[activeCharacterIndex].GetComponent<CharacterController>().enabled = false;
+        //characters[activeCharacterIndex].SetFollow(CalculateTargetPosition(activeCharacterIndex));
 
         // Enable control for the new character
         activeCharacterIndex = index;
-        characters[activeCharacterIndex].GetComponent<CharacterController>().enabled = true;
+
+
+        characters[activeCharacterIndex].SetControl();
 
         // Clear stored positions when switching characters
         activeCharacterPositions.Clear();
 
-        virtualCamera.enabled = false;
-        virtualCamera.LookAt = characters[activeCharacterIndex].GetComponent<CharacterController>().cameraFollowObject;
-        virtualCamera.Follow = characters[activeCharacterIndex].GetComponent<CharacterController>().cameraFollowObject;
-        virtualCamera.enabled = true;
+        virtualCamera.UpdateFollowTarget(characters[activeCharacterIndex].cameraFollowObject);
     }
 
     public void SwitchCharacterByIndex(int index)
@@ -77,18 +74,7 @@ public class ActiveCharacterSwitcher : MonoBehaviour
         {
             if (i != activeCharacterIndex)
             {
-                // Calculate the target position for non-active characters
-                Vector3 targetPosition = CalculateTargetPosition(i);
-                // Move non-active characters towards the target position
-                characters[i].transform.position = Vector3.Lerp(characters[i].transform.position, targetPosition, Time.deltaTime * 5f);
-
-                // Rotate the character to face the movement direction
-                if ((targetPosition - characters[i].transform.position).magnitude > 0.1f)
-                {
-                    float targetY = Quaternion.LookRotation(targetPosition - characters[i].transform.position).y;
-                    Quaternion targetRotation = new Quaternion(characters[i].GetComponent<CharacterController>().RotationLogic.Rotation.x, targetY, characters[i].GetComponent<CharacterController>().RotationLogic.Rotation.z, characters[i].GetComponent<CharacterController>().RotationLogic.Rotation.w) ;
-                    characters[i].transform.rotation = Quaternion.Lerp(characters[i].GetComponent<CharacterController>().RotationLogic.Rotation, targetRotation, rotationSpeed * Time.deltaTime);
-                }
+                characters[i].SetFollow(CalculateTargetPosition(i));
             }
         }
     }
@@ -104,9 +90,11 @@ public class ActiveCharacterSwitcher : MonoBehaviour
         int storedIndex = Mathf.Min(targetIndex, activeCharacterPositions.Count - 1);
         Vector3 targetPosition = activeCharacterPositions[storedIndex];
 
-        // Adjust the target position based on the follow distance
         Vector3 offset = (characters[characterIndex].transform.position - characters[activeCharacterIndex].transform.position).normalized * followDistance;
         targetPosition += offset;
+
+        //targetPosition = Vector3.Lerp(characters[characterIndex].transform.position, targetPosition, Time.fixedDeltaTime * 5f);
+
 
         return targetPosition;
     }
