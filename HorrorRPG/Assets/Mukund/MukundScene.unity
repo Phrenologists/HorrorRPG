@@ -1189,6 +1189,7 @@ GameObject:
   - component: {fileID: 272458441}
   - component: {fileID: 272458442}
   - component: {fileID: 272458444}
+  - component: {fileID: 272458446}
   - component: {fileID: 272458445}
   - component: {fileID: 272458443}
   m_Layer: 0
@@ -1337,6 +1338,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 272458446}
+        m_TargetAssemblyTypeName: CharStateMachine, Assembly-CSharp
+        m_MethodName: UpdateStateHealth
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &272458444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1384,6 +1397,31 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 272458446}
+        m_TargetAssemblyTypeName: CharStateMachine, Assembly-CSharp
+        m_MethodName: UpdateStateHunger
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &272458446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 272458435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d3a2ca5604b092498f0ac523f26beb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onStateChange: {fileID: 0}
 --- !u!1 &305938586
 GameObject:
   m_ObjectHideFlags: 0
@@ -5679,6 +5717,8 @@ GameObject:
   - component: {fileID: 1406532637}
   - component: {fileID: 1406532635}
   - component: {fileID: 1406532641}
+  - component: {fileID: 1406532643}
+  - component: {fileID: 1406532642}
   m_Layer: 0
   m_Name: Character2
   m_TagString: Untagged
@@ -5797,6 +5837,53 @@ MonoBehaviour:
   cameraTransform: {fileID: 963194228}
   moveSpeed: 5
   rotationSpeed: 10
+--- !u!114 &1406532642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1406532634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf1f7755a274c774296fc26b9c9af457, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 35f40e688c1f0c943b7a0fc26b3f0524, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1406532643}
+        m_TargetAssemblyTypeName: Mukund._Scripts.CharStatChanges, Assembly-CSharp
+        m_MethodName: HealthChanger
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1406532643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1406532634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf132e2b82e361f41a0c56b1a28929ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  maxSanity: 100
+  maxHunger: 120
+  _hungerLossRate: 0.2
+  onHealthUIChanged: {fileID: 11400000, guid: 3371e0cbced71df4da821ddaf46f8c56, type: 2}
+  onSanityUIChanged: {fileID: 11400000, guid: b1654be75e6c24a4088f554dd5c044da, type: 2}
+  onHungerUIChanged: {fileID: 11400000, guid: 7ced64de4afa56c499a558b12dae843d, type: 2}
 --- !u!1 &1424006599
 GameObject:
   m_ObjectHideFlags: 0

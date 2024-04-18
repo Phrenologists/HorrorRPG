@@ -11,10 +11,10 @@ namespace Mukund._Scripts
         [SerializeField]private float maxHealth;
         private float _currentHealth;
         //sanity
-        [SerializeField] float maxSanity;
+        [SerializeField]private float maxSanity;
         private float _currentSanity;
         //hunger
-        [SerializeField] float maxHunger;
+        [SerializeField]private float maxHunger;
         private float _currentHunger;
         [SerializeField]private float _hungerLossRate;
 
