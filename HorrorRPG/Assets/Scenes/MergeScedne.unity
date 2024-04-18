@@ -109,7 +109,7 @@ NavMeshSettings:
     agentRadius: 0.75
     agentHeight: 2
     agentSlope: 15
-    agentClimb: 0.8
+    agentClimb: 0.2
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
     minRegionArea: 2
@@ -2050,7 +2050,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &282713179
 Transform:
   m_ObjectHideFlags: 0
@@ -4787,6 +4787,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9223325528456824086, guid: b93d7eb052368d64a8206f7e171f2a25, type: 3}
+      propertyPath: m_Radius
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9223325528456824089, guid: b93d7eb052368d64a8206f7e171f2a25, type: 3}
       propertyPath: m_Name
       value: 1
@@ -4794,6 +4798,10 @@ PrefabInstance:
     - target: {fileID: 9223325528456824089, guid: b93d7eb052368d64a8206f7e171f2a25, type: 3}
       propertyPath: m_TagString
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 9223325528580330346, guid: b93d7eb052368d64a8206f7e171f2a25, type: 3}
+      propertyPath: stateChangeRestriction
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9223325528580330359, guid: b93d7eb052368d64a8206f7e171f2a25, type: 3}
       propertyPath: m_Color.b
@@ -12019,7 +12027,7 @@ MonoBehaviour:
   - {fileID: 1372621642}
   - {fileID: 1296850644}
   - {fileID: 2100524859}
-  followDistance: 2
+  followDistance: 2.5
   activeCharacterIndex: 0
   maxPositionsToStore: 100
   rotationSpeed: 10
@@ -14561,6 +14569,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9223325528456824086, guid: b93d7eb052368d64a8206f7e171f2a25, type: 3}
+      propertyPath: m_Radius
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9223325528456824089, guid: b93d7eb052368d64a8206f7e171f2a25, type: 3}
       propertyPath: m_Name
       value: 4
@@ -14572,6 +14584,10 @@ PrefabInstance:
     - target: {fileID: 9223325528456824089, guid: b93d7eb052368d64a8206f7e171f2a25, type: 3}
       propertyPath: m_TagString
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 9223325528580330346, guid: b93d7eb052368d64a8206f7e171f2a25, type: 3}
+      propertyPath: stateChangeRestriction
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9223325528580330359, guid: b93d7eb052368d64a8206f7e171f2a25, type: 3}
       propertyPath: m_Color.b
@@ -15380,6 +15396,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9223325528456824086, guid: b93d7eb052368d64a8206f7e171f2a25, type: 3}
+      propertyPath: m_Radius
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9223325528456824089, guid: b93d7eb052368d64a8206f7e171f2a25, type: 3}
       propertyPath: m_Name
       value: 3
@@ -15391,6 +15411,10 @@ PrefabInstance:
     - target: {fileID: 9223325528456824089, guid: b93d7eb052368d64a8206f7e171f2a25, type: 3}
       propertyPath: m_TagString
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 9223325528580330346, guid: b93d7eb052368d64a8206f7e171f2a25, type: 3}
+      propertyPath: stateChangeRestriction
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9223325528580330359, guid: b93d7eb052368d64a8206f7e171f2a25, type: 3}
       propertyPath: m_Color.g
@@ -17028,7 +17052,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22b03d24d8819b642846b5a2f06082cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementScript: {fileID: 488378557}
   playerMove: {fileID: 488378550}
   enemyMove: {fileID: 1818618331}
   enemyCollisions: {fileID: 524900735}
@@ -22342,6 +22365,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9223325528456824086, guid: b93d7eb052368d64a8206f7e171f2a25, type: 3}
+      propertyPath: m_Radius
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9223325528456824089, guid: b93d7eb052368d64a8206f7e171f2a25, type: 3}
       propertyPath: m_Name
       value: 2
@@ -22353,6 +22380,10 @@ PrefabInstance:
     - target: {fileID: 9223325528456824089, guid: b93d7eb052368d64a8206f7e171f2a25, type: 3}
       propertyPath: m_TagString
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 9223325528580330346, guid: b93d7eb052368d64a8206f7e171f2a25, type: 3}
+      propertyPath: stateChangeRestriction
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b93d7eb052368d64a8206f7e171f2a25, type: 3}
@@ -23078,6 +23109,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9223325528456824086, guid: b93d7eb052368d64a8206f7e171f2a25, type: 3}
+      propertyPath: m_Radius
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9223325528456824089, guid: b93d7eb052368d64a8206f7e171f2a25, type: 3}
       propertyPath: m_Name
       value: 5
@@ -23089,6 +23124,10 @@ PrefabInstance:
     - target: {fileID: 9223325528456824089, guid: b93d7eb052368d64a8206f7e171f2a25, type: 3}
       propertyPath: m_TagString
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 9223325528580330346, guid: b93d7eb052368d64a8206f7e171f2a25, type: 3}
+      propertyPath: stateChangeRestriction
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9223325528580330359, guid: b93d7eb052368d64a8206f7e171f2a25, type: 3}
       propertyPath: m_Color.b

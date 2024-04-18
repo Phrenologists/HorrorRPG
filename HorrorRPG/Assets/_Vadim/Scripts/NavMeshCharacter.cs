@@ -7,9 +7,8 @@ public class NavMeshCharacter : ICharacterMovement
 {
     private NavMeshAgent agent;
     private BodyRotation _rotationLogic;
-    private Vector3[] directions = { Vector3.forward, Vector3.back, Vector3.left, Vector3.right, Vector3.forward + Vector3.right, Vector3.forward + Vector3.left, Vector3.back + Vector3.right, Vector3.back + Vector3.left };
 
-    public override bool IsMoving => agent.velocity.magnitude > .5f;
+    public override bool IsMoving => agent.velocity.magnitude > .75f;
 
     private void Awake()
     {
