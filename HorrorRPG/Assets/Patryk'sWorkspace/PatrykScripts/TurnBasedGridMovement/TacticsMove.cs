@@ -285,6 +285,7 @@ public class TacticsMove : MonoBehaviour
 
     public void BeginTurn()
     {
+        ActiveCharacterSwitcher.Instance.UpdateCameraFollow(transform);
         turn = true;
     }
 

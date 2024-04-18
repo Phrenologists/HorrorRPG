@@ -17,8 +17,8 @@ public class SpriteBillboard : ICameraTransformDependant
 
         if (freezeXZ)
         {
-            sprite.rotation = Quaternion.Euler(sprite.eulerAngles.x,
-                camera.transform.eulerAngles.y, sprite.eulerAngles.z);
+            sprite.rotation = Quaternion.Euler(0,
+                camera.transform.eulerAngles.y, 0);
         }
         else
         {

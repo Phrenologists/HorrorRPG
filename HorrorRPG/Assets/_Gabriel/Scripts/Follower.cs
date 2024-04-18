@@ -21,7 +21,7 @@ public class Follower : MonoBehaviour
             float curveValue = followCurve.Evaluate(distanceNormalized);
 
             // Smoothly move towards the target
-            transform.position = Vector3.Slerp(transform.position, target.position, curveValue * Time.deltaTime * followSpeed);
+            transform.position = Vector3.Lerp(transform.position, target.position, curveValue * Time.deltaTime * followSpeed);
         }
     }
 }

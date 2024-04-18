@@ -8,7 +8,7 @@ public class EnemyCollisions : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Player"))
         {
-            GameManager.Instance.SetCombatState(true);
+            GameManager.Instance.SetCombatPlayer(other.gameObject);
             GameManager.Instance.SetGridPosition(other.transform.position);
         }
     }

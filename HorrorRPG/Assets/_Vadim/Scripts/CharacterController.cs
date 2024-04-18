@@ -13,7 +13,7 @@ public class CharacterController : MonoBehaviour
     private SpriteManager spriteManager;
     private StrictMovement characterMovement;
     private NavMeshCharacter navMeshCharacter;
-
+    private PlayerMove combatMove;
     public Transform cameraFollowObject;
     public BodyRotation RotationLogic => rotationLogic;
 
@@ -27,6 +27,7 @@ public class CharacterController : MonoBehaviour
         spriteManager.BodyLogic = rotationLogic.transform;
         characterMovement.enabled = false;
         navMeshCharacter.enabled = false;
+        combatMove = GetComponent<PlayerMove>();
     }
     private void Update()
     {
@@ -38,23 +39,38 @@ public class CharacterController : MonoBehaviour
     }
     public void SetFollow(Vector3 followTarget)
     {
-        if(currentMovement != navMeshCharacter)
-        {
-            if (currentMovement) currentMovement.enabled = false; else characterMovement.enabled = false;
-            currentMovement = navMeshCharacter;
-            currentMovement.enabled = true;
-        }
+        SetStop();
         navMeshCharacter.MoveTowards(followTarget);
     }
     public void SetControl()
     {
         if (currentMovement != characterMovement)
         {
-            if (currentMovement) currentMovement.enabled = false; else navMeshCharacter.enabled = false;
-            currentMovement = navMeshCharacter;
+            if (currentMovement) currentMovement.enabled = false;
             currentMovement = characterMovement;
             currentMovement.enabled = true;
         }
+    }
+    public void SetStop()
+    {
+        if (currentMovement != navMeshCharacter)
+        {
+            if (currentMovement) currentMovement.enabled = false;
+            currentMovement = navMeshCharacter;
+            currentMovement.enabled = true;
+        }
+    }
+    //public void SetStop()
+    //{
+    //    if (currentMovement) currentMovement.enabled = false;
+    //    navMeshCharacter.enabled = false;
+    //    characterMovement.enabled = false;
+    //}
+    public void SetCombat()
+    {
+        SetStop();
+        currentMovement.enabled = false;
+        GameManager.Instance.playerMove = combatMove;
     }
 
 }
