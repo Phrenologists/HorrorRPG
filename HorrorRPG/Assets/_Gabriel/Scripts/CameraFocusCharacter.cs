@@ -1,25 +1,28 @@
 using UnityEngine;
 
-public class CameraFocusCharacter : MonoBehaviour
+namespace _Gabriel.Scripts
 {
-    public CharacterSwitcher characterSwitcher; // Reference to the CharacterSwitcher script
-    public float rotationSpeed = 5f; // Rotation speed for the camera
-
-    void Update()
+    public class CameraFocusCharacter : MonoBehaviour
     {
-        if (characterSwitcher != null && characterSwitcher.characters.Length > 0)
+        public CharacterSwitcher characterSwitcher; // Reference to the CharacterSwitcher script
+        public float rotationSpeed = 5f; // Rotation speed for the camera
+
+        void Update()
         {
-            int activeCharacterIndex = characterSwitcher.activeCharacterIndex; // Access active character index
+            if (characterSwitcher != null && characterSwitcher.characters.Length > 0)
+            {
+                int activeCharacterIndex = characterSwitcher.activeCharacterIndex; // Access active character index
 
-            // Get the controlled character's position
-            Vector3 controlledCharacterPosition = characterSwitcher.characters[activeCharacterIndex].transform.position;
+                // Get the controlled character's position
+                Vector3 controlledCharacterPosition = characterSwitcher.characters[activeCharacterIndex].transform.position;
 
-            // Calculate the direction from the camera to the controlled character
-            Vector3 cameraToCharacterDirection = controlledCharacterPosition - transform.position;
+                // Calculate the direction from the camera to the controlled character
+                Vector3 cameraToCharacterDirection = controlledCharacterPosition - transform.position;
 
-            // Rotate the camera to face the controlled character
-            Quaternion targetRotation = Quaternion.LookRotation(cameraToCharacterDirection);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+                // Rotate the camera to face the controlled character
+                Quaternion targetRotation = Quaternion.LookRotation(cameraToCharacterDirection);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+            }
         }
     }
 }

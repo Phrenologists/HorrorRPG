@@ -1,9 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class rotate : MonoBehaviour {
-	void Update () {
-        transform.Rotate(Vector3.up, Time.deltaTime * 60);
+namespace _Gabriel.SquishShader.Assets.demo_related
+{
+    public class rotate : MonoBehaviour {
+        void Update () {
+            transform.Rotate(Vector3.up, Time.deltaTime * 60);
+        }
     }
 }
