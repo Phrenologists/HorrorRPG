@@ -38,11 +38,16 @@ namespace Mukund._Scripts
 
         public void HealthChanger(Component sender, object data)
         {
+           
             if (sender == gameObject.GetComponent<Collider>())
             {
                 _currentHealth += (float)data;
                 print("health changed:" + _currentHealth);
                 onHealthUIChanged.TriggerEvent(this, _currentHealth);
+            }
+            else
+            {
+                print(sender.GetType());
             }
         }
     
@@ -79,7 +84,15 @@ namespace Mukund._Scripts
             onHungerUIChanged.TriggerEvent(this, _currentHunger);
         }
         
-        
+        public void SanityChanger(Component sender, object data)
+        {
+            if (sender == gameObject.GetComponent<Collider>())
+            {
+                _currentSanity += (float)data;
+                print("sanity changed:" + _currentSanity);
+                onSanityUIChanged.TriggerEvent(this, _currentSanity);
+            }
+        }
 
 
     }
