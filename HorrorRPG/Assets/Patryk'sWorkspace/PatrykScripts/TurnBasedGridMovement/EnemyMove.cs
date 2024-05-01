@@ -27,7 +27,7 @@ public class EnemyMove : TacticsMove
         FindNearestTarget();
         CalculatePath();
         FindSelectableTiles();
-        actualTargetTile.target = true;
+        if(actualTargetTile) actualTargetTile.target = true;
         }
         else
         {

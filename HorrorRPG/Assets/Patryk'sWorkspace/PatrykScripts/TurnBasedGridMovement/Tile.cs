@@ -84,7 +84,7 @@ public class Tile : MonoBehaviour
     {
         Vector3 halfExtents = new Vector3(0.25f, (1 + jumpHeight) / 2.0f, 0.25f);
         Collider[] colliders =  Physics.OverlapBox(transform.position + direction, halfExtents);
-
+        //Debug.Log("Target: " + target + " Colliders: " + colliders);
         foreach (Collider item in colliders)
         {
             Tile tile = item.GetComponent<Tile>();

@@ -43,7 +43,7 @@ public class TacticsMove : MonoBehaviour
     {
         RaycastHit hit;
         Tile tile = null;
-        if (Physics.Raycast(target.transform.position, -Vector3.up, out hit, 1))
+        if (Physics.Raycast(target.transform.position, -Vector3.up, out hit, 100))
         {
             Debug.Log("Hit object: " + hit.collider.gameObject.name);
             tile = hit.collider.GetComponent<Tile>();
@@ -60,7 +60,7 @@ public class TacticsMove : MonoBehaviour
         foreach (GameObject tile in tiles)
         {
             Tile t = tile.GetComponent<Tile>();
-            t.FindNeighbors(jumpHeight, target);
+            t.FindNeighbors(100, target);
         }
     }
 
@@ -221,7 +221,6 @@ public class TacticsMove : MonoBehaviour
     {
         ComputeAdjacencyLists(jumpHeight, target);
         GetCurrentTile();
-
         List<Tile> openList = new List<Tile>();
         List<Tile> closedList = new List<Tile>();
 

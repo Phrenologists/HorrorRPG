@@ -3664,9 +3664,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 282713178}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.981, y: -0.027360797, z: -6.4559994}
-  m_LocalScale: {x: 1.2000002, y: 0.10000001, z: 1.2000002}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: -6.981, y: 0.07, z: -6.4559994}
+  m_LocalScale: {x: 1, y: 0.08333333, z: 1}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1135376328}
   - {fileID: 686789682}
@@ -6644,7 +6644,8 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 9048304613662375807, guid: b93d7eb052368d64a8206f7e171f2a25, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: b93d7eb052368d64a8206f7e171f2a25, type: 3}
 --- !u!114 &483926378 stripped
 MonoBehaviour:
@@ -17617,7 +17618,8 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 9048304613662375807, guid: b93d7eb052368d64a8206f7e171f2a25, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: b93d7eb052368d64a8206f7e171f2a25, type: 3}
 --- !u!114 &1296850644 stripped
 MonoBehaviour:
@@ -18791,7 +18793,8 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.9737179
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 9048304613662375807, guid: b93d7eb052368d64a8206f7e171f2a25, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: b93d7eb052368d64a8206f7e171f2a25, type: 3}
 --- !u!114 &1372621642 stripped
 MonoBehaviour:
@@ -24169,7 +24172,7 @@ MonoBehaviour:
   jumpHeight: 2
   moveSpeed: 2
   moving: 0
-  actualTargetTile: {fileID: 491262307}
+  actualTargetTile: {fileID: 0}
 --- !u!136 &1818618332
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -24470,11 +24473,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3876753269434132517, guid: 46657f2eb107aeb468b122a3fc5a4092, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.000000037163645
+      value: 0.00000003716364
       objectReference: {fileID: 0}
     - target: {fileID: 3876753269434132517, guid: 46657f2eb107aeb468b122a3fc5a4092, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.000000009957965
+      value: -0.000000009957964
       objectReference: {fileID: 0}
     - target: {fileID: 3876753269668681483, guid: 46657f2eb107aeb468b122a3fc5a4092, type: 3}
       propertyPath: m_LocalRotation.y
@@ -24498,11 +24501,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3876753270557696194, guid: 46657f2eb107aeb468b122a3fc5a4092, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.000000021073427
+      value: 0.000000021073424
       objectReference: {fileID: 0}
     - target: {fileID: 3876753270557696194, guid: 46657f2eb107aeb468b122a3fc5a4092, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.000000012166748
+      value: -0.000000012166746
       objectReference: {fileID: 0}
     - target: {fileID: 7484468331928243372, guid: 46657f2eb107aeb468b122a3fc5a4092, type: 3}
       propertyPath: m_Name
@@ -26849,7 +26852,8 @@ PrefabInstance:
       propertyPath: stateChangeRestriction
       value: 2
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 9048304613662375807, guid: b93d7eb052368d64a8206f7e171f2a25, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: b93d7eb052368d64a8206f7e171f2a25, type: 3}
 --- !u!114 &2058621859 stripped
 MonoBehaviour:
@@ -27708,7 +27712,8 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.020080209
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 9048304613662375807, guid: b93d7eb052368d64a8206f7e171f2a25, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: b93d7eb052368d64a8206f7e171f2a25, type: 3}
 --- !u!114 &2100524859 stripped
 MonoBehaviour:

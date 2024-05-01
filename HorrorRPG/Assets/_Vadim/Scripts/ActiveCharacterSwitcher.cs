@@ -45,13 +45,13 @@ public class ActiveCharacterSwitcher : MonoBehaviour
         }
         else
         {
-            for (int i = 0; i < characters.Length; i++)
-            {
-                if (i != activeCharacterIndex)
-                {
-                    characters[i].gameObject.SetActive(false);
-                }
-            }
+            //for (int i = 0; i < characters.Length; i++)
+            //{
+            //    if (i != activeCharacterIndex)
+            //    {
+            //        characters[i].gameObject.SetActive(false);
+            //    }
+            //}
         }
     }
 
